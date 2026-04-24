@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Management System | Smart Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #fef9f0;
+            color: #2d2d2d;
+        }
+
+        /* Navigation */
+        nav {
+            background: #8b3c1c;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd966;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #greetingMessage {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffd966;
+        }
+
+        #clock {
+            font-size: 1.5rem;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 3rem 5%;
+            background: white;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #8b3c1c, #c95e2e);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Order Form Section */
+        .order-section {
+            padding: 3rem 5%;
+            background: #fff3e0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #8b3c1c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .order-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: #ff9f1c;
+            color: #2d2d2d;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #e07c1c;
+            transform: scale(1.02);
+        }
+
+        /* Orders List */
+        .orders-list {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+        }
+
+        .order-item {
+            background: #f9f9f9;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #ff9f1c;
+        }
+
+        .order-item .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Popular Dishes */
+        .popular-section {
+            padding: 3rem 5%;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dish-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .dish-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dish-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .dish-card h3 {
+            margin: 1rem 0 0.5rem;
+        }
+
+        .order-count {
+            color: #e67e22;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d2d2d;
+            color: #ddd;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Resto<span>Manager</span></div>
+        <ul class="nav-links">
+            <li><a href="#" id="homeLink">Home</a></li>
+            <li><a href="#" id="ordersLink">Orders</a></li>
+            <li><a href="jbjb.html" id="menuLink">Menu</a></li>
+            <li><a href="#">Reservations</a></li>
+            <li><a href="#">Staff</a></li>
+            <li><a href="#">Reports</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Restaurant Management System</h1>
+            <p id="greetingMessage"></p>
+            <div id="clock"></div>
+        </div>
+    </section>
+
+    <!-- Statistics Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <i class="fas fa-chair"></i>
+            <h3 id="totalTables">24</h3>
+            <p>Total Tables</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3 id="occupiedTables">12</h3>
+            <p>Occupied Now</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-calendar-check"></i>
+            <h3 id="todayReservations">8</h3>
+            <p>Today's Reservations</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-shopping-cart"></i>
+            <h3 id="totalOrders">0</h3>
+            <p>Orders Today</p>
+        </div>
+    </div>
+
+    <!-- Order Management Section -->
+    <div class="order-section" id="orderSection">
+        <h2 class="section-title"><i class="fas fa-plus-circle"></i> Place New Order</h2>
+        <div class="order-form">
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="customerName" placeholder="Enter customer name">
+            </div>
+            <div class="form-group">
+                <label>Select Dish</label>
+                <select id="dishSelect">
+                    <option value="Grilled Ribeye Steak">Grilled Ribeye Steak - $24.99</option>
+                    <option value="Truffle Pasta">Truffle Pasta - $18.50</option>
+                    <option value="Seafood Paella">Seafood Paella - $28.00</option>
+                    <option value="Margherita Pizza">Margherita Pizza - $15.99</option>
+                    <option value="Caesar Salad">Caesar Salad - $12.50</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="quantity" value="1" min="1">
+            </div>
+            <button class="btn" onclick="addOrder()">
+                <i class="fas fa-cart-plus"></i> Add Order
+            </button>
+        </div>
+
+        <div class="orders-list" id="ordersList">
+            <h3 style="margin-bottom: 1rem;">📋 Active Orders</h3>
+            <div id="ordersContainer">
+                <p style="color: #999; text-align: center;">No orders yet. Add your first order above.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Dishes Section -->
+    <div class="popular-section">
+        <h2 class="section-title"><i class="fas fa-fire"></i> Most Ordered Dishes</h2>
+        <div class="dishes-grid" id="popularDishesGrid">
+            <!-- JavaScript will populate this -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Restaurant Management System | Smart Dashboard</p>
+    </footer>
+
+    <script>
+        // ==================== JAVASCRIPT CODE ====================
+        
+        // 1. Digital Clock & Greeting Message
+        function updateClockAndGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            
+            // 12-hour format
+            const hour12 = hours % 12 || 12;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const timeString = `${hour12}:${minutes}:${seconds} ${ampm} | ${date}`;
+            
+            document.getElementById('clock').innerHTML = `<i class="fas fa-clock"></i> ${timeString}`;
+            
+            // Greeting message based on time
+            let greeting = '';
+            if (hours < 12) greeting = '🌅 Good Morning! Ready for a great day?';
+            else if (hours < 17) greeting = '☀️ Good Afternoon! Welcome to RestoManager';
+            else greeting = '🌙 Good Evening! Dinner service is starting';
+            
+            document.getElementById('greetingMessage').innerHTML = greeting;
+        }
+        
+        // Update clock every second
+        setInterval(updateClockAndGreeting, 1000);
+        updateClockAndGreeting();
+        
+        // 2. Orders Array (store orders)
+        let orders = [];
+        let orderIdCounter = 1;
+        
+        // Dish order counts for popularity
+        let dishOrderCounts = {
+            'Grilled Ribeye Steak': 0,
+            'Truffle Pasta': 0,
+            'Seafood Paella': 0,
+            'Margherita Pizza': 0,
+            'Caesar Salad': 0
+        };
+        
+        // Dish prices mapping
+        const dishPrices = {
+            'Grilled Ribeye Steak': 24.99,
+            'Truffle Pasta': 18.50,
+            'Seafood Paella': 28.00,
+            'Margherita Pizza': 15.99,
+            'Caesar Salad': 12.50
+        };
+        
+        // 3. Function to add order
+        function addOrder() {
+            const customerName = document.getElementById('customerName').value.trim();
+            const dishSelect = document.getElementById('dishSelect');
+            const dishName = dishSelect.value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            // Validation
+            if (customerName === '') {
+                alert('❌ Please enter customer name!');
+                return;
+            }
+            
+            if (quantity < 1) {
+                alert('❌ Quantity must be at least 1!');
+                return;
+            }
+            
+            const price = dishPrices[dishName];
+            const totalPrice = price * quantity;
+            
+            // Create new order
+            const newOrder = {
+                id: orderIdCounter++,
+                customerName: customerName,
+                dishName: dishName,
+                quantity: quantity,
+                totalPrice: totalPrice.toFixed(2),
+                timestamp: new Date().toLocaleTimeString()
+            };
+            
+            orders.push(newOrder);
+            
+            // Update dish order count
+            dishOrderCounts[dishName]++;
+            
+            // Update total orders display
+            updateTotalOrders();
+            
+            // Refresh orders list display
+            displayOrders();
+            
+            // Update popular dishes display
+            displayPopularDishes();
+            
+            // Clear customer name input
+            document.getElementById('customerName').value = '';
+            document.getElementById('quantity').value = '1';
+            
+            // Show success message
+            showNotification(`✅ Order added for ${customerName}!`);
+        }
+        
+        // 4. Display all orders
+        function displayOrders() {
+            const container = document.getElementById('ordersContainer');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center;">No orders yet. Add your first order above.</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            orders.forEach(order => {
+                const orderDiv = document.createElement('div');
+                orderDiv.className = 'order-item';
+                orderDiv.innerHTML = `
+                    <div>
+                        <strong>${order.customerName}</strong><br>
+                        ${order.dishName} x${order.quantity}<br>
+                        <small style="color:#666;">$${order.totalPrice} | ${order.timestamp}</small>
+                    </div>
+                    <button class="delete-btn" onclick="deleteOrder(${order.id})">
+                        <i class="fas fa-trash"></i> Cancel
+                    </button>
+                `;
+                container.appendChild(orderDiv);
+            });
+        }
+        
+        // 5. Delete order
+        function deleteOrder(id) {
+            // Find order to get dish name for decrementing count
+            const orderToDelete = orders.find(order => order.id === id);
+            if (orderToDelete) {
+                dishOrderCounts[orderToDelete.dishName]--;
+                if (dishOrderCounts[orderToDelete.dishName] < 0) dishOrderCounts[orderToDelete.dishName] = 0;
+            }
+            
+            orders = orders.filter(order => order.id !== id);
+            updateTotalOrders();
+            displayOrders();
+            displayPopularDishes();
+            showNotification('🗑️ Order cancelled successfully!');
+        }
+        
+        // 6. Update total orders count in stats
+        function updateTotalOrders() {
+            const totalOrdersCount = orders.length;
+            document.getElementById('totalOrders').innerText = totalOrdersCount;
+            
+            // Update occupied tables (simulation: each order occupies 2 tables)
+            const occupiedCount = Math.min(totalOrdersCount * 2, 24);
+            document.getElementById('occupiedTables').innerText = occupiedCount;
+            
+            // Update reservations dynamically (random simulation)
+            const randomReservations = Math.floor(Math.random() * 15) + 3;
+            document.getElementById('todayReservations').innerText = randomReservations;
+        }
+        
+        // 7. Display popular dishes (sorted by order count)
+        function displayPopularDishes() {
+            const grid = document.getElementById('popularDishesGrid');
+            
+            // Convert to array and sort by count
+            const dishesArray = Object.entries(dishOrderCounts).map(([name, count]) => ({
+                name: name,
+                count: count,
+                price: dishPrices[name]
+            }));
+            
+            dishesArray.sort((a, b) => b.count - a.count);
+            
+            // Dish images mapping
+            const dishImages = {
+                'Grilled Ribeye Steak': 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&h=300&fit=crop',
+                'Truffle Pasta': 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop',
+                'Seafood Paella': 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=400&h=300&fit=crop',
+                'Margherita Pizza': 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&h=300&fit=crop',
+                'Caesar Salad': 'https://images.unsplash.com/photo-1546793665-c74683f969c6?w=400&h=300&fit=crop'
+            };
+            
+            grid.innerHTML = '';
+            dishesArray.forEach(dish => {
+                const card = document.createElement('div');
+                card.className = 'dish-card';
+                card.innerHTML = `
+                    <img src="${dishImages[dish.name]}" alt="${dish.name}">
+                    <h3>${dish.name}</h3>
+                    <div class="price">$${dish.price}</div>
+                    <div class="order-count">
+                        <i class="fas fa-shopping-bag"></i> Ordered: ${dish.count} times
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        // 8. Notification system
+        function showNotification(message) {
+            // Create temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 10px;
+                z-index: 2000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+        
+        // Add animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 9. Initialize dashboard with random data
+        function initializeDashboard() {
+            // Set initial stats
+            document.getElementById('totalTables').innerText = '24';
+            document.getElementById('occupiedTables').innerText = '5';
+            document.getElementById('todayReservations').innerText = '7';
+            document.getElementById('totalOrders').innerText = '0';
+            
+            // Add some example orders for demo
+            setTimeout(() => {
+                // Demo orders to show functionality
+                const demoOrders = [
+                    { customer: 'Alice M.', dish: 'Grilled Ribeye Steak', qty: 2 },
+                    { customer: 'Bob K.', dish: 'Truffle Pasta', qty: 1 }
+                ];
+                
+                demoOrders.forEach(order => {
+                    document.getElementById('customerName').value = order.customer;
+                    const select = document.getElementById('dishSelect');
+                    for(let i = 0; i < select.options.length; i++) {
+                        if(select.options[i].value === order.dish) {
+                            select.selectedIndex = i;
+                            break;
+                        }
+                    }
+                    document.getElementById('quantity').value = order.qty;
+                    addOrder();
+                });
+            }, 500);
+            
+            displayPopularDishes();
+        }
+        
+        // 10. Smooth scrolling for navigation
+        document.getElementById('ordersLink')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('orderSection').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('homeLink')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Start the dashboard
+        initializeDashboard();
+        
+        // Auto-refresh reservations every 30 seconds (simulate real-time)
+        setInterval(() => {
+            if(orders.length > 0) {
+                const randomReservations = Math.floor(Math.random() * 20) + 2;
+                document.getElementById('todayReservations').innerText = randomReservations;
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
