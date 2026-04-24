@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sector Services</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<style> 
+     body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+    }
+
+    h2 {
+        color: #2c3e50;
+    }
+
+    select {
+        padding: 8px;
+        font-size: 16px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        width: 250px;
+    }
+
+    #serviceDetails {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-left: 5px solid #007BFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    #serviceDetails h3 {
+        margin-top: 0;
+        color: #007BFF;
+    }
+
+    /* Optional hover effect for table version */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table th, table td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+
+    table tr:hover {
+        background-color: #e0f0ff;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+
+<h2>Services Offered at Tabagwe Sector</h2>
+<select id="serviceSelect"></select>
+<div id="serviceDetails"></div> 
+
+<script>
+// Example: Show alert when a service is clicked    
+// Services list with optional description
+const services = [
+  {name: "National ID Services", description: "Issuing and renewing national ID cards."},
+  {name: "Land Services", description: "Land registration and ownership documents."},
+  {name: "Marriage Certificate", description: "Issuing official marriage certificates."},
+  {name: "Birth Certificate", description: "Issuing official birth certificates."},
+  {name: "Social Affairs Services", description: "Support for social welfare and assistance."},
+  {name: "Business Registration", description: "Registering new businesses in the sector."}
+];
+
+// Populate dropdown
+const serviceSelect = document.getElementById("serviceSelect");
+services.forEach(service => {
+  const option = document.createElement("option");
+  option.value = service.name;
+  option.textContent = service.name;
+  serviceSelect.appendChild(option);
+});
+
+// Show details when user selects a service
+const serviceDetails = document.getElementById("serviceDetails");
+serviceSelect.addEventListener("change", function(){
+  const selected = services.find(s => s.name === this.value);
+  if(selected){
+    serviceDetails.innerHTML = `<h3>${selected.name}</h3><p>${selected.description}</p>`;
+  } else {
+    serviceDetails.innerHTML = "";
+  }
+});
+</script>
+</body>
+</html>

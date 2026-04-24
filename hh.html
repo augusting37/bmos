@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tabagwe Cells and Villages</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+margin:20px;
+}
+
+h2,h3{
+color:#333;
+}
+
+select,ul{
+margin-top:10px;
+}
+
+li{
+margin-bottom:5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Imidugudu igize Tabagwe Sector</h2>
+
+<h3>Select Cell</h3>
+<select id="cellSelect">
+<option value="">-- Choose Cell --</option>
+</select>
+
+<h3>Villages (Imidugudu)</h3>
+<ul id="villageList"></ul>
+
+<script>
+
+const cells={
+"Gitengure":["Kanyinya","Nyamirama","Rukore","Rugando"],
+"Gishuro":["Gishuro I","Gishuro II","Kabeza","Nyakigina"],
+"Nyabitekeri":["Nyabitekeri I","Nyabitekeri II","Kinyinya","Rurenge"],
+"Nyagatoma":["Runyeri I","Nyagatabire II","Kabuga","Rwerere"],
+"Tabagwe":["Tabagwe I","Tabagwe II","Karambo","Rukomo"]
+};
+
+const cellSelect=document.getElementById("cellSelect");
+const villageList=document.getElementById("villageList");
+
+/* gushyiramo cells muri select */
+for(const cell in cells){
+const option=document.createElement("option");
+option.value=cell;
+option.textContent=cell;
+cellSelect.appendChild(option);
+}
+
+/* igihe ukanze kuri cell */
+cellSelect.addEventListener("change",function(){
+
+const selectedCell=this.value;
+
+villageList.innerHTML="";
+
+if(selectedCell){
+
+cells[selectedCell].forEach(function(village){
+
+const li=document.createElement("li");
+
+li.textContent=village;
+
+villageList.appendChild(li);
+
+});
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
