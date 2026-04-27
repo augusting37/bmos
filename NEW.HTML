@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Sector - Tabagwe</title>
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#f1f5f0; }
+header { background:#2c3e50; color:#fff; padding:20px; text-align:center; }
+nav { background:#333; text-align:center; padding:10px; }
+nav a { color:#ffffff; margin:0 10px; text-decoration:none; font-weight:bold; }
+nav a:hover { color:rgb(119, 255, 0); }
+aside { width:250px; background:#f4f4f4; padding:15px; float:left; height:100vh; }
+aside ul { list-style:none; padding:0; } 
+aside ul li { margin:10px 0; }
+main { margin-left:270px; padding:20px; }
+.job { background:#ffffff; padding:15px; margin-bottom:15px; border-radius:5px; box-shadow:0 0 5px rgba(0,0,0,0.1); }
+form { background:#ffffff; padding:15px; border-radius:5px; margin-bottom:20px; }
+form input, form select, form button, form textarea { width:100%; padding:8px; margin:5px 0 15px 0; box-sizing:border-box; }
+footer { background:#2c3e50; color:#fff; text-align:center; padding:10px; clear:both; margin-top:20px; }
+.media img, .media audio, .media video { display:block; margin-top:15px; border-radius:5px; }
+.media img { max-width:100%; height:auto; }
+.media audio, .media video { width:100%; }
+button.submit-btn { background-color:#007BFF; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; }
+button.submit-btn:hover { opacity:0.9; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Tabagwe Sector</h1>
+</header>
+
+<nav>
+    <a href="hh.html">Home</a>
+    <a href="service.html">Services</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="#">Contact</a>
+    <a href="admin.html">Admin</a>
+</nav>
+
+<aside>
+    <h3>Select a Cell</h3>
+    <select id="cellSelect">
+        <option value="">-- Choose a Cell --</option>
+    </select>
+
+    <h3>Villages</h3>
+    <ul id="villageList"></ul>
+</aside>
+
+<main>
+    <!-- Jobs Section -->
+    <h2>Available Jobs</h2>
+    <div id="jobsList"></div>
+
+    <!-- Administration Section -->
+    <h2>Administration</h2>
+    <div id="adminList">
+        <div class="job">
+            <h3>Sector Executive</h3>
+            <p>Name: John Doe</p>
+            <p>Email: admin@tabagwe.gov.rw</p>
+            <p>Phone: +250 788 123 456</p>
+        </div>
+        <div class="job">
+            <h3>Social Affairs Officer</h3>
+            <p>Name: Jane Mukamana</p>
+            <p>Email: social@tabagwe.gov.rw</p>
+            <p>Phone: +250 788 654 321</p>
+        </div>
+    </div>
+
+    <!-- Administration Form -->
+    <h3>Add New Administration Officer</h3>
+    <form id="adminFormSubmission">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Phone Number" required>
+        <input type="text" placeholder="Position" required>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+    <!-- Contact Section -->
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+
+    <!-- Media Section -->
+    <h2>Media</h2>
+    <div class="media">
+        <img src="577329261_1205474968305764_2904882749495496885_n.jpg" alt="Tabagwe Image" style="width:30%;">
+        <img src="unnamed.png" alt="Tabagwe Logo" style="width:30%;">
+        <img src="download.jpg" alt="Tabagwe View" style="width:30%;">
+        <img src="576819248_1205474961639098_181213114126652684_n.jpg" alt="Tabagwe Landscape" style="width:30%;">
+        <audio controls autoplay loop>
+            <source src="tabagwe.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <video controls autoplay loop>
+            <source src="youtube_32dp.png" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <h3>Person IDs</h3>
+
+<ul>
+<li>Person ID: 1199080000000001</li>
+<li>Person ID: 1200040000000002</li>
+</ul>
+
+    <!-- Contact Information -->
+    <address>
+        <p>Email: contact@tabagwe.gov.rw</p>
+        <p>Phone: +250 793 461 781</p>
+        <a href="https://www.youtube.com" target="_blank">Watch Tabagwe Video</a>
+
+    </address>
+</main>
+
+<footer>
+    <p>&copy; 2026 Tabagwe Sector</p>
+</footer>
+
+<script>
+    const form = document.getElementById("personForm");
+const idList = document.getElementById("idList");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const personId = document.getElementById("personId").value;
+
+    const li = document.createElement("li");
+    li.textContent = "Person ID: " + personId;
+
+    idList.appendChild(li);
+
+    form.reset();
+});
+    
+        // Defining a function to display error message
+function printError(elemId, hintMsg){
+document.getElementById(elemId).innerHTML = hintMsg;
+}
+
+// Defining a function to validate form
+function validateForm(){
+
+var name = document.contactForm.name.value;
+var email = document.contactForm.email.value;
+var mobile = document.contactForm.mobile.value;
+var country = document.contactForm.country.value;
+var gender = document.contactForm.gender.value;
+
+var hobbies = [];
+var checkboxes = document.getElementsByName("hobbies[]");
+
+for(var i=0;i<checkboxes.length;i++){
+if(checkboxes[i].checked){
+hobbies.push(checkboxes[i].value);
+}
+}
+
+var nameErr = emailErr = mobileErr = countryErr = genderErr = true;
+
+// Validate name
+if(name == ""){
+printError("nameErr","Please enter your name");
+}else{
+var regex=/^[a-zA-Z\s]+$/;
+if(regex.test(name)===false){
+printError("nameErr","Please enter a valid name");
+}else{
+printError("nameErr","");
+nameErr=false;
+}
+}
+
+// Validate email
+if(email==""){
+printError("emailErr","Please enter your email address");
+}else{
+var regex=/^\S+@\S+\.\S+$/;
+if(regex.test(email)===false){
+printError("emailErr","Please enter a valid email address");
+}else{
+printError("emailErr","");
+emailErr=false;
+}
+}
+
+// Validate mobile
+if(mobile==""){
+printError("mobileErr","Please enter your mobile number");
+}else{
+var regex=/^[1-9]\d{9}$/;
+if(regex.test(mobile)===false){
+printError("mobileErr","Please enter a valid 10 digit mobile number");
+}else{
+printError("mobileErr","");
+mobileErr=false;
+}
+}
+
+// Validate country
+if(country=="Select"){
+printError("countryErr","Please select your country");
+}else{
+printError("countryErr","");
+countryErr=false;
+}
+
+// Validate gender
+if(gender==""){
+printError("genderErr","Please select your gender");
+}else{
+printError("genderErr","");
+genderErr=false;
+}
+
+// Prevent form submission if error
+if(nameErr || emailErr || mobileErr || countryErr || genderErr){
+return false;
+}else{
+
+var dataPreview =
+"Full Name: "+name+"\n"+
+"Email Address: "+email+"\n"+
+"Mobile Number: "+mobile+"\n"+
+"Country: "+country+"\n"+
+"Gender: "+gender+"\n";
+
+if(hobbies.length){
+dataPreview+="Hobbies: "+hobbies.join(", ");
+}
+
+alert(dataPreview);
+return true;
+
+}
+}
+
+// Cells na villages
+const cell={
+"Gitengure":["Kanyinya","Nyamirama","Rukore","Rugando"],
+"Gishuro":["Gishuro I","Gishuro II","Kabeza","Nyakigina"],
+"Nyabitekeri":["Nyabitekeri I","Nyabitekeri II","Kinyinya","Rurenge"],
+"Nyagatoma":["Runyeri I","Nyagatabire II","Kabuga","Rwerere"],
+"Tabagwe":["Tabagwe I","Tabagwe II","Karambo","Rukomo"]
+};
+
+const cellSelect=document.getElementById("cellSelect");
+
+for(const cell in cells){
+const option=document.createElement("option");
+option.value=cell;
+option.textContent=cell;
+cellSelect.appendChild(option);
+}
+
+const villageList=document.getElementById("villageList");
+
+cellSelect.addEventListener("change",function(){
+const selectedCell=this.value;
+villageList.innerHTML="";
+
+if(selectedCell && cells[selectedCell]){
+cells[selectedCell].forEach(function(village){
+const li=document.createElement("li");
+li.textContent=village;
+villageList.appendChild(li);
+});
+}
+});
+
+// Jobs dynamic
+const job=[
+{title:"Web Developer",company:"Tech Rwanda",location:"Kigali"},
+{title:"Driver",company:"City Transport",location:"Kigali"},
+{title:"Hotel Receptionist",company:"Kigali Hotel",location:"Kigali"}
+];
+
+const jobsLis=document.getElementById("jobsList");
+
+jobs.forEach(function(job){
+const div=document.createElement("div");
+div.classList.add("job");
+
+div.innerHTML=
+"<h3>"+job.title+"</h3>"+
+"<p>Company: "+job.company+"</p>"+
+"<p>Location: "+job.location+"</p>";
+
+jobsList.appendChild(div);
+});
+
+// Contact form
+const contactFor=document.getElementById("contactForm");
+
+contactForm.addEventListener("submit",function(e){
+e.preventDefault();
+alert("Thank you! Your message has been sent.");
+contactForm.reset();
+});
+
+// Admin form
+const adminFor=document.getElementById("adminFormSubmission");
+const adminLis=document.getElementById("adminList");
+
+adminForm.addEventListener("submit",function(e){
+e.preventDefault();
+
+const name=adminForm[0].value;
+const email=adminForm[1].value;
+const phone=adminForm[2].value;
+const position=adminForm[3].value;
+
+const div=document.createElement("div");
+div.classList.add("job");
+
+div.innerHTML=
+"<h3>"+position+"</h3>"+
+"<p>Name: "+name+"</p>"+
+"<p>Email: "+email+"</p>"+
+"<p>Phone: "+phone+"</p>";
+
+adminList.appendChild(div);
+
+alert("New administration officer added successfully!");
+adminForm.reset();
+});
+
+        
+
+KTSS 
+const cells = {
+    "Gitengure": ["Kanyinya","Nyamirama","Rukore","Rugando"],
+    "Gishuro": ["Gishuro I","Gishuro II","Kabeza","Nyakigina"],
+    "Nyabitekeri": ["Nyabitekeri I","Nyabitekeri II","Kinyinya","Rurenge"],
+    "Nyagatoma": ["Runyeri I","Nyagatabire II","Kabuga","Rwerere"],
+    "Tabagwe": ["Tabagwe I","Tabagwe II","Karambo","Rukomo"]
+};
+
+const cellSele = document.getElementById("cellSelect");
+const village = document.getElementById("villageList");
+
+// gushyiramo cells muri select
+for (const cell in cells){
+    const option = document.createElement("option");
+    option.value = cell;
+    option.textContent = cell;
+    cellSelect.appendChild(option);
+}
+
+// kwerekana imidugudu iyo cell yatoranyijwe
+cellSelect.addEventListener("change", function(){
+    const selectedCell = this.value;
+    villageList.innerHTML = "";
+
+    if(selectedCell && cells[selectedCell]){
+        cells[selectedCell].forEach(function(village){
+            const li = document.createElement("li");
+            li.textContent = village;
+            villageList.appendChild(li);
+        });
+    }
+});
+;
+
+// Populate select
+const cellSelec = document.getElementById("cellSelect");
+for (const cell in cells){
+    const option = document.createElement("option");
+    option.value = cell;
+    option.textContent = cell;
+    cellSelect.appendChild(option);
+}
+
+// Show villages
+const villageLis = document.getElementById("villageList");
+cellSelect.addEventListener("change", function(){
+    const selectedCell = this.value;
+    villageList.innerHTML = "";
+    if(selectedCell && cells[selectedCell]){
+        cells[selectedCell].forEach(village=>{
+            const li = document.createElement("li");
+            li.textContent = village;
+            villageList.appendChild(li);
+        });
+    }
+});
+
+// Jobs dynamic
+const jobs = [
+    {title:"Web Developer", company:"Tech Rwanda", location:"Kigali"},
+    {title:"Driver", company:"City Transport", location:"Kigali"},
+    {title:"Hotel Receptionist", company:"Kigali Hotel", location:"Kigali"}
+];
+
+const jobsList = document.getElementById("jobsList");
+jobs.forEach(job=>{
+    const div = document.createElement("div");
+    div.classList.add("job");
+    div.innerHTML = `<h3>${job.title}</h3><p>Company: ${job.company}</p><p>Location: ${job.location}</p>`;
+    jobsList.appendChild(div);
+});
+
+// Contact form submission
+const contactForm = document.getElementById("contactForm");
+contactForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("Thank you! Your message has been sent.");
+    contactForm.reset();
+});
+
+// Admin form submission (adds officer dynamically)
+const adminForm = document.getElementById("adminFormSubmission");
+const adminList = document.getElementById("adminList");
+adminForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    const name = adminForm[0].value;
+    const email = adminForm[1].value;
+    const phone = adminForm[2].value;
+    const position = adminForm[3].value;
+
+    const div = document.createElement("div");
+    div.classList.add("job");
+    div.innerHTML = `<h3>${position}</h3><p>Name: ${name}</p><p>Email: ${email}</p><p>Phone: ${phone}</p>`;
+    adminList.appendChild(div);
+
+    alert("New administration officer added successfully!");
+    adminForm.reset();
+});
+</script>
+
+</body>
+</html><blockquote></blockquote>
+<ggggg>         
+
+    <div>
+                    
+    </div>
+</ggggg>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jobs in Tabagwe Sector</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+    }
+
+    h2 {
+        color: #2c3e50;
+    }
+
+    .job {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .job h3 {
+        margin: 0 0 5px 0;
+        color: #007BFF;
+    }
+
+    .job p {
+        margin: 3px 0;
+    }
+</style>
+</head>
+<body>
+
+<h2>Available Jobs in Tabagwe Sector</h2>
+
+<div id="jobsList"></div>
+
+<script>
+// Array of jobs
+const jobs = [
+    {title: "Web Developer", company: "Tech Rwanda", location: "Kigali"},
+    {title: "Driver", company: "City Transport", location: "Kigali"},
+    {title: "Hotel Receptionist", company: "Kigali Hotel", location: "Kigali"},
+    {title: "Health Officer", company: "Tabagwe Health Center", location: "Tabagwe"},
+    {title: "Teacher", company: "Tabagwe Primary School", location: "Tabagwe"}
+];
+
+// Reference to jobs container
+const jobsList = document.getElementById("jobsList");
+
+// Function to display jobs
+function displayJobs() {
+    jobsList.innerHTML = ""; // clear previous
+    jobs.forEach(job => {
+        const div = document.createElement("div");
+        div.classList.add("job");
+        div.innerHTML = `
+            <h3>${job.title}</h3>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+        `;
+        jobsList.appendChild(div);
+    });
+}
+
+// Call the function to display jobs
+displayJobs();
+</script>
+
+</body>
+</html>

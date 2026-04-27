@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Sector - Tabagwe</title>
+<style>
+/* Body & General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #e6f0fa; /* light blue background */
+    color: #1a1a1a;
+}
+
+/* Header */
+header {
+    background-color: #3366cc; /* darker blue */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Navigation */
+nav {
+    background-color: #1a4d99; /* medium blue */
+    text-align: center;
+    padding: 10px;
+}
+nav a {
+    color: #ffffff;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+nav a:hover {
+    color: #cce6ff; /* light hover blue */
+}
+
+/* Sidebar */
+aside {
+    width: 250px;
+    background-color: #cce0ff; /* very light blue */
+    padding: 15px;
+    float: left;
+    height: 100vh;
+}
+aside h3 {
+    color: #1a1a1a;
+}
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+aside ul li {
+    margin: 10px 0;
+}
+
+/* Main Content */
+main {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+/* Jobs & Admin Cards */
+.job {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Forms */
+form {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+form input, form select, form button, form textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    box-sizing: border-box;
+}
+button.submit-btn {
+    background-color: #3366cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button.submit-btn:hover {
+    opacity: 0.9;
+}
+
+/* Media */
+.media img, .media audio, .media video {
+    display: block;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.media img { max-width:100%; height:auto; }
+.media audio, .media video { width:100%; }
+
+/* Footer */
+footer {
+    background-color: #3366cc;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Welcome to Tabagwe Sector</h1>
+</header>
+
+<nav>
+    <a href="hh.html">Home</a>
+    <a href="service.html">Services</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="#">Contact</a>
+    <a href="admin.html">Admin</a>
+</nav>
+
+<aside>
+    <h3>Select a Cell</h3>
+    <select id="cellSelect">
+        <option value="">-- Choose a Cell --</option>
+    </select>
+
+    <h3>Villages</h3>
+    <ul id="villageList"></ul>
+</aside>
+
+<main>
+    <h2>Available Jobs</h2>
+    <div id="jobsList"></div>
+
+    <h2>Administration</h2>
+    <div id="adminList"></div>
+
+    <h3>Add New Administration Officer</h3>
+    <form id="adminFormSubmission">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Phone Number" required>
+        <input type="text" placeholder="Position" required>
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2026 Tabagwe Sector</p>
+</footer>
+
+<script>
+// Cells & Villages
+const cells = {
+    "Gitengure":["Kanyinya","Nyamirama","Rukore","Rugando"],
+    "Gishuro":["Gishuro I","Gishuro II","Kabeza","Nyakigina"],
+    "Nyabitekeri":["Nyabitekeri I","Nyabitekeri II","Kinyinya","Rurenge"],
+    "Nyagatoma":["Runyeri I","Nyagatabire II","Kabuga","Rwerere"],
+    "Tabagwe":["Tabagwe I","Tabagwe II","Karambo","Rukomo"]
+};
+
+const cellSelect = document.getElementById("cellSelect");
+const villageList = document.getElementById("villageList");
+
+// Populate cells
+for(const cell in cells){
+    const option = document.createElement("option");
+    option.value = cell;
+    option.textContent = cell;
+    cellSelect.appendChild(option);
+}
+
+// Display villages on cell select
+cellSelect.addEventListener("change", function(){
+    const selectedCell = this.value;
+    villageList.innerHTML = "";
+    if(selectedCell && cells[selectedCell]){
+        cells[selectedCell].forEach(village => {
+            const li = document.createElement("li");
+            li.textContent = village;
+            villageList.appendChild(li);
+        });
+    }
+});
+
+// Jobs Dynamic
+const jobs = [
+    {title:"Web Developer", company:"Tech Rwanda", location:"Kigali"},
+    {title:"Driver", company:"City Transport", location:"Kigali"},
+    {title:"Hotel Receptionist", company:"Kigali Hotel", location:"Kigali"}
+];
+
+const jobsList = document.getElementById("jobsList");
+
+jobs.forEach(job => {
+    const div = document.createElement("div");
+    div.classList.add("job");
+    div.innerHTML = `<h3>${job.title}</h3><p><strong>Company:</strong> ${job.company}</p><p><strong>Location:</strong> ${job.location}</p>`;
+    jobsList.appendChild(div);
+});
+
+// Admin form
+const adminForm = document.getElementById("adminFormSubmission");
+const adminList = document.getElementById("adminList");
+adminForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    const name = adminForm[0].value;
+    const email = adminForm[1].value;
+    const phone = adminForm[2].value;
+    const position = adminForm[3].value;
+
+    const div = document.createElement("div");
+    div.classList.add("job");
+    div.innerHTML = `<h3>${position}</h3><p>Name: ${name}</p><p>Email: ${email}</p><p>Phone: ${phone}</p>`;
+    adminList.appendChild(div);
+
+    adminForm.reset();
+});
+</script>
+
+</body>
+</html>
